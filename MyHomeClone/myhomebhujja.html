@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Home Bhooja</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background-attachment: fixed;
+      color: #e8e8e8;
+      line-height: 1.6;
+    }
+
+    header {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .carousel {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      display: flex;
+      animation: slide 20s infinite ease-in-out;
+    }
+
+    .carousel img {
+      width: 100%;
+      object-fit: cover;
+      filter: brightness(0.7) contrast(1.2);
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0%); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0%); }
+    }
+
+    header h1 {
+      display: none;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    nav .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: #f0f0f0;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+      transform: translateY(-2px);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #f0f0f0;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .hamburger {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -70%;
+        width: 70%;
+        height: calc(100vh - 70px);
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 3rem;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        border-left: 1px solid rgba(255, 215, 0, 0.3);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links a {
+        margin: 1.5rem 0;
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+        width: 90%;
+        text-align: center;
+        border-radius: 12px;
+        background: rgba(255, 215, 0, 0.1);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .menu-toggle.active .hamburger:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .menu-toggle.active .hamburger:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active .hamburger:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+      background: rgba(30, 30, 50, 0.9);
+      margin-bottom: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    section h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: #d0d0d0;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .gallery img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+    }
+
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .contact-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+
+    .contact-form {
+      background: rgba(30, 30, 50, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 3rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      flex: 1;
+      max-width: 450px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 15px 20px;
+      margin-bottom: 1.5rem;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .contact-form button {
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    footer {
+      background: linear-gradient(135deg, #000000, #1a1a2e);
+      color: #f0f0f0;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="scrollToOverview()"><strong>My Home Bhooja</strong></div>
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#location">Location</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="carousel">
+      <img src="Images/868595 lingala mallesh_page-0001.jpg" alt="My Home Bhooja View 1">
+      <img src="Images/868595 lingala mallesh_page-0002.jpg" alt="My Home Bhooja View 2">
+      <img src="Images/868595 lingala mallesh_page-0003.jpg" alt="My Home Bhooja View 3">
+    </div>
+    <h1>Luxury High-Rise Living</h1>
+  </header>
+
+  <section id="overview">
+    <h2>Project Overview</h2>
+    <p>My Home Bhooja is an ultra-luxury residential project in HITEC City, Hyderabad, spread across 18 acres with IGBC certification and green building compliance. Offering 3 and 4 BHK spacious homes designed for modern living.</p>
+    <div class="gallery">
+      <img src="Images/868595 lingala mallesh_page-0004.jpg" alt="Exterior View">
+      <img src="Images/868595 lingala mallesh_page-0005.jpg" alt="Clubhouse">
+      <img src="Images/868595 lingala mallesh_page-0006.jpg" alt="Living Room">
+    </div>
+  </section>
+
+  <section id="location">
+    <h2>Prime Location</h2>
+    <p>Located in the heart of HITEC City, right next to the Biodiversity Park and minutes from major tech hubs like Mindspace, TCS, and Raidurg Metro Station. Easy access to schools, hospitals, malls, and corporate offices.</p>
+    <div class="gallery">
+      <img src="Images/868595 lingala mallesh_page-0007.jpg" alt="Map View">
+      <img src="Images/868595 lingala mallesh_page-0008.jpg" alt="Landmark Proximity">
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>World-Class Amenities</h2>
+    <p>Clubhouse, gym, swimming pool, landscaped gardens, children’s play area, jogging tracks, and 24x7 security – designed to provide the ultimate luxury lifestyle.</p>
+    <div class="gallery">
+      <img src="Images/868595 lingala mallesh_page-0009.jpg" alt="Swimming Pool">
+      <img src="Images/868595 lingala mallesh_page-0010.jpg" alt="Fitness Center">
+      <img src="Images/868595 lingala mallesh_page-0011.jpg" alt="Children Play Area">
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-container">
+      <div>
+        <p>For bookings and inquiries, contact us at +91-XXXXXXXXXX or email sales@myhomebhooja.com</p>
+      </div>
+      <form class="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My Home Bhooja. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function scrollToOverview() {
+      document.getElementById('overview').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    }
+
+    // Close menu when clicking on a nav link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.querySelector('.menu-toggle');
+        
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('nav');
+      const navLinks = document.querySelector('.nav-links');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
