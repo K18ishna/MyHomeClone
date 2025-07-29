@@ -1217,15 +1217,26 @@
   </div>
 
   <!-- Popup Form -->
-  <div class="popup-form" id="popupForm">
+   <div class="popup-form" id="popupForm">
     <button class="close-btn" onclick="closePopup()">&times;</button>
     <h3>Get Project Details</h3>
-    <form id="popupContactForm" onsubmit="submitPopupForm(event)">
+    <!-- <form id="popupContactForm" onsubmit="submitPopupForm(event)">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
       <input type="email" name="email" placeholder="Email Address" required>
       <button type="submit">Get Info</button>
-    </form>
+    </form> -->
+    <form id="popupContactForm" action="https://formsubmit.co/skrishna465@gmail.com" method="POST">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="tel" name="phone" placeholder="Phone Number" required>
+  <input type="email" name="email" placeholder="Email Address" required>
+
+  <!-- Optional (makes email readable) -->
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false">
+
+  <button type="submit">Get Info</button>
+</form>
   </div>
 
   <!-- Bottom Navigation for Mobile -->
