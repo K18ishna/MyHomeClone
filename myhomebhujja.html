@@ -1217,26 +1217,16 @@
   </div>
 
   <!-- Popup Form -->
-   <div class="popup-form" id="popupForm">
+  <div class="popup-form" id="popupForm">
     <button class="close-btn" onclick="closePopup()">&times;</button>
     <h3>Get Project Details</h3>
-    <!-- <form id="popupContactForm" onsubmit="submitPopupForm(event)">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <input type="email" name="email" placeholder="Email Address" required>
+    <form id="popupContactForm" onsubmit="sendToWhatsApp(event)">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="tel" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+      <input type="email" id="email" name="email" placeholder="Email Address" required>
       <button type="submit">Get Info</button>
-    </form> -->
-    <form id="popupContactForm" action="https://formsubmit.co/skrishna465@gmail.com" method="POST">
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="tel" name="phone" placeholder="Phone Number" required>
-  <input type="email" name="email" placeholder="Email Address" required>
-
-  <!-- Optional (makes email readable) -->
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_captcha" value="false">
-
-  <button type="submit">Get Info</button>
-</form>
+    </form>
+   
   </div>
 
   <!-- Bottom Navigation for Mobile -->
@@ -1407,18 +1397,50 @@
       const popup = document.getElementById('popupForm');
       popup.classList.remove('show');
     }
+ function sendToWhatsApp(event) {
+    event.preventDefault();
 
-    function submitPopupForm(event) {
-      event.preventDefault();
-      formSubmitted = true;
-      clearInterval(popupInterval);
-      closePopup();
-      alert('Thank you! We will contact you soon.');
-    }
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
 
-    // Start popup timer after page loads
-    window.addEventListener('load', function() {
-      // Show popup every 3 seconds until form is submitted
+    // Create data object
+    const data = {
+        name: name,
+        phone: phone,
+        email: email
+    };
+
+    // Send as JSON instead of FormData
+    fetch("https://script.google.com/macros/s/AKfycbx7H4rfD7fY9dwa1ovbPji0bKQcafoyiwRZvR19WIJ4aHt2hwZf1UHN53i_j7hkT9sQ/exec", {
+        method: "POST",
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        alert("Form submitted successfully!");
+        document.getElementById("popupContactForm").reset();
+        
+        // Mark form as submitted and stop showing popup
+        formSubmitted = true;
+        if (popupInterval) {
+            clearInterval(popupInterval);
+            popupInterval = null;
+        }
+        closePopup();
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        // alert("There was an error submitting the form.");
+    });
+}
+
+// Start popup timer after page loads
+window.addEventListener('load', function() {
+  // Show popup every 3 seconds until form is submitted
       popupInterval = setInterval(showPopup, 3000);
       
       // Show first popup after 3 seconds
